@@ -14,6 +14,8 @@
 		DC31DC9B1C83F93E00B7BFAC /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DC31DC991C83F93E00B7BFAC /* LaunchScreen.storyboard */; };
 		DC31DCA61C83F93F00B7BFAC /* PushToPullPracticeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC31DCA51C83F93F00B7BFAC /* PushToPullPracticeTests.swift */; };
 		DC31DCB11C83F93F00B7BFAC /* PushToPullPracticeUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC31DCB01C83F93F00B7BFAC /* PushToPullPracticeUITests.swift */; };
+		DC5386A41C88EB5B00999F49 /* Door.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC5386A31C88EB5B00999F49 /* Door.swift */; };
+		DC5386A91C8A026500999F49 /* DoorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC5386A81C8A026500999F49 /* DoorView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -47,6 +49,9 @@
 		DC31DCAC1C83F93F00B7BFAC /* PushToPullPracticeUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PushToPullPracticeUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		DC31DCB01C83F93F00B7BFAC /* PushToPullPracticeUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PushToPullPracticeUITests.swift; sourceTree = "<group>"; };
 		DC31DCB21C83F93F00B7BFAC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		DC5386A31C88EB5B00999F49 /* Door.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Door.swift; path = ../Door.swift; sourceTree = "<group>"; };
+		DC5386A51C88FBEF00999F49 /* DoorPractice.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = DoorPractice.playground; sourceTree = "<group>"; };
+		DC5386A81C8A026500999F49 /* DoorView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DoorView.swift; path = ../DoorView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -77,6 +82,7 @@
 		DC31DC841C83F93E00B7BFAC = {
 			isa = PBXGroup;
 			children = (
+				DC5386A51C88FBEF00999F49 /* DoorPractice.playground */,
 				DC31DC8F1C83F93E00B7BFAC /* PushToPullPractice */,
 				DC31DCA41C83F93F00B7BFAC /* PushToPullPracticeTests */,
 				DC31DCAF1C83F93F00B7BFAC /* PushToPullPracticeUITests */,
@@ -99,6 +105,8 @@
 			children = (
 				DC31DC901C83F93E00B7BFAC /* AppDelegate.swift */,
 				DC31DC921C83F93E00B7BFAC /* ViewController.swift */,
+				DC5386A31C88EB5B00999F49 /* Door.swift */,
+				DC5386A81C8A026500999F49 /* DoorView.swift */,
 				DC31DC941C83F93E00B7BFAC /* Main.storyboard */,
 				DC31DC971C83F93E00B7BFAC /* Assets.xcassets */,
 				DC31DC991C83F93E00B7BFAC /* LaunchScreen.storyboard */,
@@ -259,7 +267,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DC5386A91C8A026500999F49 /* DoorView.swift in Sources */,
 				DC31DC931C83F93E00B7BFAC /* ViewController.swift in Sources */,
+				DC5386A41C88EB5B00999F49 /* Door.swift in Sources */,
 				DC31DC911C83F93E00B7BFAC /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -487,6 +497,7 @@
 				DC31DCB71C83F93F00B7BFAC /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		DC31DCB81C83F93F00B7BFAC /* Build configuration list for PBXNativeTarget "PushToPullPracticeTests" */ = {
 			isa = XCConfigurationList;
@@ -495,6 +506,7 @@
 				DC31DCBA1C83F93F00B7BFAC /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		DC31DCBB1C83F93F00B7BFAC /* Build configuration list for PBXNativeTarget "PushToPullPracticeUITests" */ = {
 			isa = XCConfigurationList;
@@ -503,6 +515,7 @@
 				DC31DCBD1C83F93F00B7BFAC /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
