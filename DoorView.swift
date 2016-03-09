@@ -35,10 +35,12 @@ class DoorView: UIView {
         case Left
     }
     
+    // FIXME: Get the layer created within the class. Currently method is being called in VC
     func createDoorFrameLayer() {
         let frameLayer = CALayer()
         frameLayer.borderWidth = 10
         frameLayer.frame = self.bounds
+        frameLayer.delegate = self
         self.layer.addSublayer(frameLayer)
     }
     
@@ -50,6 +52,7 @@ class DoorView: UIView {
         self.handlePosition = door.handlePosition
         
         super.init(coder: aDecoder)
+        
     }
     
     override init(frame: CGRect) {
@@ -58,6 +61,7 @@ class DoorView: UIView {
         let configuredDoor = config.configureSlidingDoor(preconfigDoor)
         door = configuredDoor
         self.handlePosition = door.handlePosition
+        
         super.init(frame: frame)
     }
     
@@ -70,7 +74,7 @@ class DoorView: UIView {
     func open(swipeDirection: UISwipeGestureRecognizerDirection) {
         func slideOpenUp() {
             UIView.animateWithDuration(1.0, animations: { () -> Void in
-                self.frame.size.height = 0
+                self.layer.frame.size.height = 0
                 }) { (completed) -> Void in
                     if (completed) {
                         self.delegate?.doorDidOpen(self)
@@ -118,7 +122,6 @@ class DoorView: UIView {
         default:
             print("Gesture not recognized: \(swipeDirection)")
         }
-        
     }
     
     
@@ -127,6 +130,8 @@ class DoorView: UIView {
     func close(direction: SlideDirection) {
         
     }
+    
+    
     
     
     
