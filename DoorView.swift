@@ -78,6 +78,8 @@ class DoorView: UIView {
                 }) { (completed) -> Void in
                     if (completed) {
                         self.delegate?.doorDidOpen(self)
+                        
+                        
                     }
             }
         }
