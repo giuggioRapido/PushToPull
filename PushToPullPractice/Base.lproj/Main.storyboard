@@ -20,7 +20,6 @@
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="inJ-Xc-fJL" customClass="DoorView" customModule="PushToPullPractice" customModuleProvider="target">
                                 <rect key="frame" x="150" y="75" width="300" height="450"/>
-                                <color key="backgroundColor" red="0.98539724689364183" green="1" blue="0.9707220628159855" alpha="1" colorSpace="calibratedRGB"/>
                                 <gestureRecognizers/>
                                 <connections>
                                     <outletCollection property="gestureRecognizers" destination="QRH-7Q-CrA" appends="YES" id="mcJ-Uq-JiK"/>

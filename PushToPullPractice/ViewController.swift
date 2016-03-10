@@ -24,33 +24,21 @@ class ViewController: UIViewController {
         
         door.delegate = self
         
-        //        initialDoorPosition = door.frame
-        //
-        //        doorframe.frame = door.layer.frame
-        //        doorframe.borderWidth = 10
-        //        doorframe.borderColor = UIColor.blackColor().CGColor
-        //        view.layer.addSublayer(doorframe)
-        //
-        //        initialDoorFrame = doorframe
-
+        door.createSubLayers()
         
-        door.createDoorFrameLayer()
-
     }
     
     func walkThroughDoor() {
         /// We use inset to compensate for the doorframe's border thickness. In the case of a 10 pt border, we make the doorframe the size of the superview + 10 pts on each side, else we'll still see the border when animation is complete.
         UIView.animateWithDuration(1.0, animations: { () -> Void in
-            //                    self.doorframe.frame = CGRectInset(self.view.frame, -10, -10)
             
-            self.door.layer.sublayers?.first?.bounds = CGRectInset(self.view.frame, -10, -10)
+//            self.door.layer.sublayers?.first?.bounds = CGRectInset(self.view.frame, -10, -10)
+            self.door.layer.sublayers?[1].bounds = CGRectInset(self.view.frame, -10, -10)
            
             }) { (completed) -> Void in
-                //self.doorframe.removeFromSuperlayer()
+                
+                //self.door.removeFromSuperview()
         }
-        
-        //self.doorframe.frame = CGRectInset(self.view.frame, -10, -10)
-        
         
     }
     
@@ -67,7 +55,7 @@ class ViewController: UIViewController {
 }
 
 extension ViewController: DoorViewDelegate {
-    func doorDidOpen(door: DoorView) {
+    func doorDidOpen(door: DoorView?) {
         print("Door did open")
         walkThroughDoor()
     }

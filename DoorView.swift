@@ -9,13 +9,15 @@
 import UIKit
 
 protocol DoorViewDelegate {
-    func doorDidOpen(door: DoorView)
+    func doorDidOpen(door: DoorView?)
 }
 
 class DoorView: UIView {
     var handlePosition: HandlePosition
     var door: Door
     var delegate: DoorViewDelegate?
+    var doorLayer = CALayer()
+    var frameLayer = CALayer()
     
     
     /*
@@ -36,8 +38,12 @@ class DoorView: UIView {
     }
     
     // FIXME: Get the layer created within the class. Currently method is being called in VC
-    func createDoorFrameLayer() {
-        let frameLayer = CALayer()
+    func createSubLayers() {
+        doorLayer.frame = self.bounds
+        doorLayer.backgroundColor = UIColor.whiteColor().CGColor
+        doorLayer.delegate = self
+        self.layer.addSublayer(doorLayer)
+        
         frameLayer.borderWidth = 10
         frameLayer.frame = self.bounds
         frameLayer.delegate = self
@@ -72,22 +78,21 @@ class DoorView: UIView {
     
     
     func open(swipeDirection: UISwipeGestureRecognizerDirection) {
+                
         func slideOpenUp() {
             UIView.animateWithDuration(1.0, animations: { () -> Void in
-                self.layer.frame.size.height = 0
+                self.doorLayer.frame.size.height = 0
                 }) { (completed) -> Void in
                     if (completed) {
                         self.delegate?.doorDidOpen(self)
-                        
-                        
                     }
             }
         }
         
         func slideOpenRight() {
             UIView.animateWithDuration(1.0, animations: { () -> Void in
-                self.frame.origin.x = self.frame.maxX
-                self.frame.size.width = 0
+                self.doorLayer.frame.origin.x = self.frame.maxX
+                self.doorLayer.frame.size.width = 0
                 }) { (completed) -> Void in
                     self.delegate?.doorDidOpen(self)
             }
@@ -95,8 +100,8 @@ class DoorView: UIView {
         
         func slideOpenDown() {
             UIView.animateWithDuration(1.0, animations: { () -> Void in
-                self.frame.origin.y = self.frame.maxY
-                self.frame.size.height = 0
+                self.doorLayer.frame.origin.y = self.frame.maxY
+                self.doorLayer.frame.size.height = 0
                 }) { (completed) -> Void in
                     self.delegate?.doorDidOpen(self)
             }
@@ -105,9 +110,9 @@ class DoorView: UIView {
         
         func slideOpenLeft() {
             UIView.animateWithDuration(1.0, animations: { () -> Void in
-                self.frame.size.width = 0
+                self.doorLayer.frame.size.width = 0
                 }) { (completed) -> Void in
-                    self.delegate?.doorDidOpen(self)
+                    self.delegate?.doorDidOpen(nil)
             }
         }
         
