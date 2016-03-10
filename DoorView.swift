@@ -91,7 +91,7 @@ class DoorView: UIView {
         
         func slideOpenRight() {
             UIView.animateWithDuration(1.0, animations: { () -> Void in
-                self.doorLayer.frame.origin.x = self.frame.maxX
+                self.doorLayer.frame.origin.x = self.doorLayer.frame.maxX
                 self.doorLayer.frame.size.width = 0
                 }) { (completed) -> Void in
                     self.delegate?.doorDidOpen(self)
@@ -100,7 +100,7 @@ class DoorView: UIView {
         
         func slideOpenDown() {
             UIView.animateWithDuration(1.0, animations: { () -> Void in
-                self.doorLayer.frame.origin.y = self.frame.maxY
+                self.doorLayer.frame.origin.y = self.doorLayer.frame.maxY
                 self.doorLayer.frame.size.height = 0
                 }) { (completed) -> Void in
                     self.delegate?.doorDidOpen(self)
