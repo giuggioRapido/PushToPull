@@ -13,7 +13,6 @@ protocol DoorViewDelegate {
 }
 
 class DoorView: UIView {
-    var handlePosition: HandlePosition
     var door: Door
     var delegate: DoorViewDelegate?
     var doorLayer = CALayer()
@@ -51,34 +50,32 @@ class DoorView: UIView {
     }
     
     required init?(coder aDecoder: NSCoder) {
-        let config = DoorLogicConfigurator()
-        let preconfigDoor = SlidingDoor(handlePosition: .Left, configurer: config)
+        let config = DoorLogicConfigurer()
+        let preconfigDoor = SlidingDoor(handlePosition: .Left)
         let configuredDoor = config.configureSlidingDoor(preconfigDoor)
         door = configuredDoor
-        self.handlePosition = door.handlePosition
         
         super.init(coder: aDecoder)
         
     }
     
     override init(frame: CGRect) {
-        let config = DoorLogicConfigurator()
-        let preconfigDoor = SlidingDoor(handlePosition: .Left, configurer: config)
+        let config = DoorLogicConfigurer()
+        let preconfigDoor = SlidingDoor(handlePosition: .Left)
         let configuredDoor = config.configureSlidingDoor(preconfigDoor)
         door = configuredDoor
-        self.handlePosition = door.handlePosition
         
         super.init(frame: frame)
     }
     
-    convenience init(handlePosition: HandlePosition, frame: CGRect = CGRect.zero) {
+    convenience init(door: Door, frame: CGRect = CGRect.zero) {
         self.init(frame: frame)
-        self.handlePosition = door.handlePosition
+        self.door = door
     }
     
     
     func open(swipeDirection: UISwipeGestureRecognizerDirection) {
-                
+        
         func slideOpenUp() {
             UIView.animateWithDuration(1.0, animations: { () -> Void in
                 self.doorLayer.frame.size.height = 0
@@ -134,12 +131,6 @@ class DoorView: UIView {
     
     
     
-    func close(direction: SlideDirection) {
-        
-    }
-    
-    
-    
     
     
     
@@ -168,7 +159,7 @@ class DoorView: UIView {
     //
     //        view.layer.position = position
     //        view.layer.anchorPoint = anchorPoint
-    //    }
+    //
     //
     //
     //    func setAnchorPoint(anchorPoint: AnchorPoint) {

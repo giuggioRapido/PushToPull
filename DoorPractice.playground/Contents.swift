@@ -43,7 +43,6 @@ protocol Door {
     //    var implicitInstruction: ImplicitInstruction {get}
     
     func open()
-    func close()
 }
 
 protocol Sliding {
@@ -59,7 +58,6 @@ protocol ConfiguresDoors {
 extension Door where Self: Sliding {
     
     func open() {
-        print("Door slid \(slideDirection) to open")
     }
     
     func close()  {
@@ -69,15 +67,18 @@ extension Door where Self: Sliding {
 
 // Mark: Structs
 
-struct DoorLogicConfigurator: ConfiguresDoors {
+struct DoorLogicConfigurer: ConfiguresDoors {
     func configureSlidingDoor(var door: protocol <Door, Sliding>) -> protocol <Door, Sliding> {
         switch door.handlePosition {
+            
         case .Top:
             door.slideDirection = .Down
             door.swipeDirection = .Up
+            
         case .Right:
             door.slideDirection = .Left
             door.swipeDirection = .Right
+            
         case .Bottom:
             door.slideDirection = .Up
             door.swipeDirection = .Down
@@ -88,18 +89,47 @@ struct DoorLogicConfigurator: ConfiguresDoors {
         }
         return door
     }
+    
+    func configureSlidingDoorForHandlePosition(handlePosition: HandlePosition) -> (slideDirection: SlideDirection, swipeDirection: SwipeDirection) {
+        // var door = SlidingDoor(handlePosition: handlePosition)
+        
+        switch handlePosition {
+            
+        case .Top:
+            //            door.slideDirection = .Down
+            //            door.swipeDirection = .Up
+            return(.Down, .Up)
+            
+        case .Right:
+            //            door.slideDirection = .Left
+            //            door.swipeDirection = .Right
+            return(.Left, .Right)
+            
+        case .Bottom:
+            //            door.slideDirection = .Up
+            //            door.swipeDirection = .Down
+            return(.Up, .Down)
+            
+        case .Left:
+            //            door.slideDirection = .Right
+            //            door.swipeDirection = .Left
+            return(.Right, .Left)
+        }
+        
+        
+    }
 }
 
 struct SlidingDoor: Door, Sliding {
-    var handlePosition = HandlePosition.Left
-    var slideDirection = SlideDirection.Right
-    var implicitInstruction = ImplicitInstruction.Slide
-    var swipeDirection = SwipeDirection.Left
+    var handlePosition: HandlePosition
+    var slideDirection: SlideDirection
+    var implicitInstruction: ImplicitInstruction = ImplicitInstruction.Slide
+    var swipeDirection: SwipeDirection
     
-    init(handlePosition: HandlePosition, configurer: ConfiguresDoors) {
+    init(handlePosition: HandlePosition) {
         self.handlePosition = handlePosition
-        let configuredDoor = configurer.configureSlidingDoor(self)
-        self.handlePosition = configuredDoor.handlePosition
+        let configurer = DoorLogicConfigurer()
+        let configuredDoor = configurer.configureSlidingDoorForHandlePosition(handlePosition)
         self.slideDirection = configuredDoor.slideDirection
         self.swipeDirection = configuredDoor.swipeDirection
     }
@@ -108,21 +138,6 @@ struct SlidingDoor: Door, Sliding {
         print("handlePosition: \(handlePosition), slideDirection: \(slideDirection), swipeDirection: \(swipeDirection)")
     }
 }
-
-let config = DoorLogicConfigurator()
-
-let sd1 = SlidingDoor(handlePosition: .Left, configurer: config)
-sd1.printDescription()
-
-let sd2 = SlidingDoor(handlePosition: .Bottom, configurer: config)
-sd2.printDescription()
-
-let sd3 = SlidingDoor(handlePosition: .Right, configurer: config)
-sd3.printDescription()
-
-let sd4 = SlidingDoor(handlePosition: .Top, configurer: config)
-sd4.printDescription()
-
 
 
 
