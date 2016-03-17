@@ -17,6 +17,7 @@ class ViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
     }
     
     override func viewDidAppear(animated: Bool) {
@@ -27,33 +28,26 @@ class ViewController: UIViewController {
         door.createSubLayers()
     }
     
-    func walkThroughDoor() {
-        /// We use inset to compensate for the doorframe's border thickness. In the case of a 10 pt border, we make the doorframe the size of the superview + 10 pts on each side, else we'll still see the border when animation is complete.
-        UIView.animateWithDuration(1.0, animations: { () -> Void in
-            if let doorFrameLayer = self.door.layer.sublayers?[1] {
-                doorFrameLayer.bounds = CGRectInset(self.view.frame, -10, -10)
-            }
-            
-            }) { (completed) -> Void in
-        }
-        
-    }
+    
     
     @IBAction func swipe(sender: UISwipeGestureRecognizer) {
-        self.door.open(sender.direction)
+        print(door.door.swipeDirection)
+        print(sender.direction)
+        
+        if (sender.direction.rawValue ==  door.door.swipeDirection.rawValue) {
+            self.door.open(sender.direction)
+        }
     }
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-    
-    
 }
 
 extension ViewController: DoorViewDelegate {
-    func doorDidOpen(door: DoorView?) {
+    func doorDidOpen(door: DoorView) {
+        /// DoorView's doorLayer has completed its open animation,
         print("Door did open")
-        walkThroughDoor()
     }
 }

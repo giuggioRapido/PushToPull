@@ -49,6 +49,11 @@ protocol Sliding {
     var slideDirection: SlideDirection {get set}
 }
 
+protocol Hinged {
+    var hingePosition: HingePosition {get set}
+}
+
+
 protocol ConfiguresDoors {
     func configureSlidingDoor(door: protocol <Door, Sliding>) -> protocol <Door, Sliding>
 }
@@ -58,11 +63,17 @@ protocol ConfiguresDoors {
 extension Door where Self: Sliding {
     
     func open() {
+        print("Door slid to the \(slideDirection)")
     }
     
-    func close()  {
-        print("Door closed")
+}
+
+extension Door where Self: Hinged {
+    func open() {
+        print("Door opened from the \(hingePosition) side")
+
     }
+    
 }
 
 // Mark: Structs
@@ -139,13 +150,20 @@ struct SlidingDoor: Door, Sliding {
     }
 }
 
+struct HingedDoor: Door, Hinged {
+    var handlePosition: HandlePosition = .Left
+    var hingePosition: HingePosition = .Right
+    var swipeDirection: SwipeDirection = .Right
+}
 
 
 
-//protocol Hinged {
-//    //var hingePosition: HingePosition {get set}
-//    var gestureZone: GestureZone {get set}
-//}
+let slidingDoor = SlidingDoor(handlePosition: .Left)
+let hingedDoor = HingedDoor()
+
+slidingDoor.open()
+hingedDoor.open()
+
 
 
 
