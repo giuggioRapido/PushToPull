@@ -10,7 +10,7 @@ import UIKit
 
 class ViewController: UIViewController {
     
-    @IBOutlet weak var door: DoorView!
+    @IBOutlet weak var currentDoor: DoorView!
     var initialDoorPosition: CGRect = CGRect.zero
     var doorframe = CALayer()
     var initialDoorFrame =  CALayer()
@@ -22,20 +22,15 @@ class ViewController: UIViewController {
     
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
-        
-        door.delegate = self
-        
-        door.createSubLayers()
+        currentDoor.delegate = self
+        currentDoor.addSublayers()
     }
     
     
     
     @IBAction func swipe(sender: UISwipeGestureRecognizer) {
-        print(door.door.swipeDirection)
-        print(sender.direction)
-        
-        if (sender.direction.rawValue ==  door.door.swipeDirection.rawValue) {
-            self.door.open(sender.direction)
+        if (sender.direction.rawValue ==  currentDoor.door.swipeDirection.rawValue) {
+            self.currentDoor.open(sender.direction)
         }
     }
     
@@ -47,7 +42,7 @@ class ViewController: UIViewController {
 
 extension ViewController: DoorViewDelegate {
     func doorDidOpen(door: DoorView) {
-        /// DoorView's doorLayer has completed its open animation,
+        /// DoorView's openingLayer has completed its open animation,
         print("Door did open")
     }
 }

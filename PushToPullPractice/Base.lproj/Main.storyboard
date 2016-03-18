@@ -39,7 +39,7 @@
                         </constraints>
                     </view>
                     <connections>
-                        <outlet property="door" destination="inJ-Xc-fJL" id="Woy-9K-vIJ"/>
+                        <outlet property="currentDoor" destination="inJ-Xc-fJL" id="o1z-tt-5dp"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
