@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		DC034FCC1CA0E8F800A00886 /* Stage.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC034FCB1CA0E8F800A00886 /* Stage.swift */; };
 		DC31DC911C83F93E00B7BFAC /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC31DC901C83F93E00B7BFAC /* AppDelegate.swift */; };
 		DC31DC931C83F93E00B7BFAC /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC31DC921C83F93E00B7BFAC /* ViewController.swift */; };
 		DC31DC961C83F93E00B7BFAC /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DC31DC941C83F93E00B7BFAC /* Main.storyboard */; };
@@ -36,6 +37,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		DC034FCB1CA0E8F800A00886 /* Stage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Stage.swift; sourceTree = "<group>"; };
 		DC31DC8D1C83F93E00B7BFAC /* PushToPullPractice.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PushToPullPractice.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DC31DC901C83F93E00B7BFAC /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		DC31DC921C83F93E00B7BFAC /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -106,6 +108,7 @@
 				DC31DC901C83F93E00B7BFAC /* AppDelegate.swift */,
 				DC31DC921C83F93E00B7BFAC /* ViewController.swift */,
 				DC5386A31C88EB5B00999F49 /* Door.swift */,
+				DC034FCB1CA0E8F800A00886 /* Stage.swift */,
 				DC5386A81C8A026500999F49 /* DoorView.swift */,
 				DC31DC941C83F93E00B7BFAC /* Main.storyboard */,
 				DC31DC971C83F93E00B7BFAC /* Assets.xcassets */,
@@ -271,6 +274,7 @@
 				DC31DC931C83F93E00B7BFAC /* ViewController.swift in Sources */,
 				DC5386A41C88EB5B00999F49 /* Door.swift in Sources */,
 				DC31DC911C83F93E00B7BFAC /* AppDelegate.swift in Sources */,
+				DC034FCC1CA0E8F800A00886 /* Stage.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

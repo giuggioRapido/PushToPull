@@ -10,7 +10,7 @@ import UIKit
 
 class ViewController: UIViewController {
     
-    @IBOutlet weak var currentDoor: DoorView!
+    @IBOutlet weak var currentDoorView: DoorView!
     var initialDoorPosition: CGRect = CGRect.zero
     var doorframe = CALayer()
     var initialDoorFrame =  CALayer()
@@ -20,23 +20,19 @@ class ViewController: UIViewController {
         
     }
     
+    
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
-        currentDoor.delegate = self
-        currentDoor.addSublayers()
+        currentDoorView.delegate = self
+        currentDoorView.addSublayers()
     }
     
     
     
     @IBAction func swipe(sender: UISwipeGestureRecognizer) {
-        if (sender.direction.rawValue ==  currentDoor.door.swipeDirection.rawValue) {
-            self.currentDoor.open(sender.direction)
+        if (sender.direction.rawValue ==  currentDoorView.door.swipeDirection.rawValue) {
+            self.currentDoorView.open()
         }
-    }
-    
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
     }
 }
 

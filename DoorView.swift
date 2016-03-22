@@ -18,8 +18,8 @@ protocol DoorViewDelegate {
     /// the backing door's properties are used to configure a DoorView.
     var door: Door
     var delegate: DoorViewDelegate?
-    /// A DoorView has four layers: the default superlayer it comes with;
-    /// a sublayer called openingLayer, which represents "actual" door;
+    /// A DoorView has three sublayers: 
+    ////a sublayer called openingLayer, which represents "actual" door;
     /// a sublayer called baseLayer for the doorframe and provides a mask for the door;
     /// and a sublayer handleLayer for the door handle.
     /// Separating these views into separate layers allows for custom animations to applied to each
@@ -27,18 +27,6 @@ protocol DoorViewDelegate {
     var baseLayer = CALayer()
     var handleLayer = CALayer()
     
-    
-    
-    // Only override drawRect: if you perform custom drawing.
-    // An empty implementation adversely affects performance during animation.
-    //    override func drawRect(rect: CGRect) {
-    //        let handle = UIBezierPath.init(rect: CGRectMake(10, 10, 10, 10))
-    //        UIColor.blueColor().setStroke()
-    //        handle.stroke()
-    //    }
-    
-    
-    // MARK: Initialization
     /// Describes possible locations for the anchorpoint corresponding
     /// to actual coordinates, for use with certain door types (e.g. hinged).
     enum AnchorPoint {
@@ -48,7 +36,31 @@ protocol DoorViewDelegate {
         case Left
     }
     
-    // FIXME: Get the layer created within the class. Currently method is being called in VC
+    
+    // MARK: Initialization
+    
+    required init?(coder aDecoder: NSCoder) {
+        let preconfigDoor = SlidingDoor(handlePosition: .Left)
+        let configuredDoor = DoorLogicConfigurer.configureSlidingDoor(preconfigDoor)
+        door = configuredDoor
+        
+        super.init(coder: aDecoder)
+    }
+    
+    override init(frame: CGRect) {
+        let preconfigDoor = SlidingDoor(handlePosition: .Left)
+        let configuredDoor = DoorLogicConfigurer.configureSlidingDoor(preconfigDoor)
+        door = configuredDoor
+        
+        super.init(frame: frame)
+    }
+    
+    convenience init(door: Door, frame: CGRect = CGRect.zero) {
+        self.init(frame: frame)
+        self.door = door
+    }
+    
+    // FIXME: Get the layers added within the class (within/after init). Currently method is being called in VC
     func addSublayers() {
         openingLayer.frame = self.bounds
         openingLayer.backgroundColor = UIColor.whiteColor().CGColor
@@ -64,37 +76,14 @@ protocol DoorViewDelegate {
         baseLayer.addSublayer(openingLayer)
         self.layer.addSublayer(baseLayer)
     }
+
     
-    required init?(coder aDecoder: NSCoder) {
-        let config = DoorLogicConfigurer()
-        let preconfigDoor = SlidingDoor(handlePosition: .Left)
-        let configuredDoor = config.configureSlidingDoor(preconfigDoor)
-        door = configuredDoor
-        
-        super.init(coder: aDecoder)
-    }
-    
-    override init(frame: CGRect) {
-        let config = DoorLogicConfigurer()
-        let preconfigDoor = SlidingDoor(handlePosition: .Left)
-        let configuredDoor = config.configureSlidingDoor(preconfigDoor)
-        door = configuredDoor
-        
-        super.init(frame: frame)
-    }
-    
-    convenience init(door: Door, frame: CGRect = CGRect.zero) {
-        self.init(frame: frame)
-        self.door = door
-    }
-    
-    
-    func open(swipeDirection: UISwipeGestureRecognizerDirection, duration: CFTimeInterval = 1.0) {
+    func open(withDuration duration: CFTimeInterval = 1.0) {
         
         /// We only slideOpen if switch statement below determines self.door is Sliding,
         /// so we downcast as SlidingDoor so we can switch on door.slideDirection.
-        /// For each slideDirection case, a different translation is created, 
-        /// which is then passed into the slideAnimation below. 
+        /// For each slideDirection case, a different translation is created,
+        /// which is then passed into the slideAnimation below.
         func slideOpen() {
             
             let slidingDoor = self.door as! SlidingDoor
@@ -145,7 +134,6 @@ protocol DoorViewDelegate {
         }
         scaleAnimation(nil)
     }
-    
 }
 
 

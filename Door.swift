@@ -16,7 +16,7 @@ import UIKit
 /// to a subview of DoorView. The HandlePosition is also used to configure the
 /// rest of the door's functionality (the enums that follow), as implemented
 /// in DoorLogicConfigurer.
-enum HandlePosition {
+enum HandlePosition: UInt32 {
     case Top, Right, Bottom, Left
 }
 
@@ -48,17 +48,10 @@ enum GestureZone {
     case Top, Right, Bottom, Left
 }
 
-/// Describes the door's opening rules as implied by the door's design.
-enum ImplicitInstruction {
-    //    case Push, Pull
-    case Slide
-}
-
 // Mark: Protocols
 protocol Door {
     var handlePosition: HandlePosition {get set}
     var swipeDirection: SwipeDirection {get set}
-    //    var implicitInstruction: ImplicitInstruction {get}
     
     func open()
 }
@@ -68,7 +61,7 @@ protocol Sliding {
 }
 
 protocol ConfiguresDoors {
-    func configureSlidingDoor(door: protocol <Door, Sliding>) -> protocol <Door, Sliding>
+    static func configureSlidingDoor(door: protocol <Door, Sliding>) -> protocol <Door, Sliding>
 }
 
 // Mark: Protocol Extensions
@@ -86,27 +79,29 @@ extension Door where Self: Sliding {
 struct DoorLogicConfigurer: ConfiguresDoors {
     /// Takes a sliding door instance as a parameter and switches on the door's handle position.
     /// Returns an instance of a door with properties populated by configured values.
-    func configureSlidingDoor(var door: protocol <Door, Sliding>) -> protocol <Door, Sliding> {
-        
+   static func configureSlidingDoor(door: protocol <Door, Sliding>) -> protocol <Door, Sliding> {
+    
+        var configDoor = SlidingDoor(handlePosition: door.handlePosition)
+    
         switch door.handlePosition {
             
         case .Top:
-            door.slideDirection = .Down
-            door.swipeDirection = .Up
+            configDoor.slideDirection = .Down
+            configDoor.swipeDirection = .Up
             
         case .Right:
-            door.slideDirection = .Left
-            door.swipeDirection = .Right
+            configDoor.slideDirection = .Left
+            configDoor.swipeDirection = .Right
             
         case .Bottom:
-            door.slideDirection = .Up
-            door.swipeDirection = .Down
+            configDoor.slideDirection = .Up
+            configDoor.swipeDirection = .Down
             
         case .Left:
-            door.slideDirection = .Right
-            door.swipeDirection = .Left
+            configDoor.slideDirection = .Right
+            configDoor.swipeDirection = .Left
         }
-        return door
+        return configDoor
     }
     
     /// Similarly in fucntion to the method above, but instead takes only a HandlePosition value as
@@ -134,9 +129,6 @@ struct SlidingDoor: Door, Sliding {
     var handlePosition: HandlePosition
     var slideDirection: SlideDirection
     var swipeDirection: SwipeDirection
-    /// ImplicitInstruction not yet implemented enough for use, so we just assign a default value for now.
-    var implicitInstruction: ImplicitInstruction = ImplicitInstruction.Slide
-    
 
     init(handlePosition: HandlePosition) {
         self.handlePosition = handlePosition
