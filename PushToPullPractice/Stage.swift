@@ -9,11 +9,9 @@
 import Foundation
 
 struct Stage {
-    let doors: [Door] = []
+    var doors: [Door] = []
     
-    
-    
-    func randomlyGenerateDoors(doorCount: Int) -> [Door] {
+    mutating func generateRandomDoors(doorCount: Int) -> [Door] {
         var arrayOfDoors: [Door] = []
         
         for _ in 0..<doorCount {
@@ -28,5 +26,9 @@ struct Stage {
             arrayOfDoors.append(door)
         }
         return arrayOfDoors
+    }
+    
+    init(numberOfDoors: Int) {
+        doors = generateRandomDoors(numberOfDoors)
     }
 }

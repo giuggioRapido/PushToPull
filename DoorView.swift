@@ -11,6 +11,7 @@ import UIKit
 
 protocol DoorViewDelegate {
     func doorDidOpen(door: DoorView)
+    func didWalkThroughDoor(door: DoorView)
 }
 
 @IBDesignable class DoorView: UIView {
@@ -18,7 +19,7 @@ protocol DoorViewDelegate {
     /// the backing door's properties are used to configure a DoorView.
     var door: Door
     var delegate: DoorViewDelegate?
-    /// A DoorView has three sublayers: 
+    /// A DoorView has three sublayers:
     ////a sublayer called openingLayer, which represents "actual" door;
     /// a sublayer called baseLayer for the doorframe and provides a mask for the door;
     /// and a sublayer handleLayer for the door handle.
@@ -75,64 +76,6 @@ protocol DoorViewDelegate {
         openingLayer.addSublayer(handleLayer)
         baseLayer.addSublayer(openingLayer)
         self.layer.addSublayer(baseLayer)
-    }
-
-    
-    func open(withDuration duration: CFTimeInterval = 1.0) {
-        
-        /// We only slideOpen if switch statement below determines self.door is Sliding,
-        /// so we downcast as SlidingDoor so we can switch on door.slideDirection.
-        /// For each slideDirection case, a different translation is created,
-        /// which is then passed into the slideAnimation below.
-        func slideOpen() {
-            
-            let slidingDoor = self.door as! SlidingDoor
-            let translation: CATransform3D
-            
-            switch slidingDoor.slideDirection {
-            case .Down:
-                let height = baseLayer.bounds.height
-                translation = CATransform3DMakeTranslation(0, height, 0)
-            case .Left:
-                let width = openingLayer.bounds.size.width
-                translation = CATransform3DMakeTranslation(-width, 0, 0)
-            case .Right:
-                let width = openingLayer.bounds.size.width
-                translation = CATransform3DMakeTranslation(width, 0, 0)
-            case .Up:
-                let height = baseLayer.bounds.height
-                translation = CATransform3DMakeTranslation(0, -height, 0)
-            }
-            
-            let slideAnimation = {
-                (completion:(() -> ())?) in
-                CATransaction.begin()
-                CATransaction.setCompletionBlock(completion)
-                CATransaction.setAnimationDuration(duration)
-                self.openingLayer.transform = translation
-                CATransaction.commit()
-            }
-            slideAnimation({self.walkThroughDoor()})
-        }
-        
-        switch self.door {
-        case is Sliding:
-            slideOpen()
-        default:
-            print("is not sliding")
-        }
-    }
-    
-    func walkThroughDoor() {
-        let scaleAnimation = {
-            (completion:(() -> ())?) in
-            CATransaction.begin()
-            CATransaction.setCompletionBlock(completion)
-            CATransaction.setAnimationDuration(1.0)
-            self.baseLayer.transform = CATransform3DMakeScale(3.0, 3.0, 2.0)
-            CATransaction.commit()
-        }
-        scaleAnimation(nil)
     }
 }
 
