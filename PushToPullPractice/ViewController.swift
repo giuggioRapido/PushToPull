@@ -18,6 +18,8 @@ class ViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        /// assign stage's first door to currentDoorView:
     }
     
     
@@ -52,7 +54,7 @@ class ViewController: UIViewController {
     func scaleUpNextDoor() {
         UIView.animateWithDuration(1.0) {
             self.nextDoorView?.transform = CGAffineTransformIdentity
-
+            
         }
     }
     

@@ -63,16 +63,53 @@ protocol DoorViewDelegate {
     
     // FIXME: Get the layers added within the class (within/after init). Currently method is being called in VC
     func addSublayers() {
-        openingLayer.frame = self.bounds
-        openingLayer.backgroundColor = UIColor.whiteColor().CGColor
-        
+        /// baseLayer ends up looking like a door frame
         baseLayer.borderWidth = 10
         baseLayer.frame = self.bounds
         baseLayer.masksToBounds = true
         
-        handleLayer.frame = CGRectMake(20, 200, 10, 30)
+        /// openingLayer is the part of the door that opens
+        openingLayer.frame = self.bounds
+        openingLayer.backgroundColor = UIColor.whiteColor().CGColor
+        
+        /// handleLayer has several possble positions
+        /// width and height are given assuming handle is vertical (i.e. skinny and tall, as if on left)
+        let handleFrame: CGRect
+        let handlePosition: CGPoint
+        let width: CGFloat = 10
+        let height: CGFloat = 30
+        let doorMidX = baseLayer.bounds.midX
+        let doorMaxX = baseLayer.bounds.maxX
+        let doorMidY = baseLayer.bounds.midY
+        let doorMaxY = baseLayer.bounds.maxY
+        let inset: CGFloat = 30
+
+        switch self.door.handlePosition {
+        case .Bottom:
+            handlePosition = CGPointMake(doorMidX, doorMaxY - inset)
+            handleLayer.bounds.size.width = height
+            handleLayer.bounds.size.height = width
+        case .Left:
+            handlePosition = CGPointMake(inset, doorMidY - inset)
+            handleLayer.bounds.size.width = width
+            handleLayer.bounds.size.height = height
+
+        case .Right:
+            handlePosition = CGPointMake(doorMaxX - inset, doorMidY)
+            handleLayer.bounds.size.width = width
+            handleLayer.bounds.size.height = height
+
+        case .Top:
+            handlePosition = CGPointMake(doorMidX, inset - inset)
+            handleLayer.bounds.size.width = height
+            handleLayer.bounds.size.height = width
+        }
+        
+        handleLayer.anchorPoint = CGPointMake(0.5, 0.5)
+        handleLayer.position = handlePosition
         handleLayer.backgroundColor = UIColor.blueColor().CGColor
         
+        /// Construct layer hierarchy
         openingLayer.addSublayer(handleLayer)
         baseLayer.addSublayer(openingLayer)
         self.layer.addSublayer(baseLayer)

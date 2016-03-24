@@ -109,16 +109,12 @@ struct DoorLogicConfigurer: ConfiguresDoors {
     func configureSlidingLogicForHandlePosition(handlePosition: HandlePosition) -> (slideDirection: SlideDirection, swipeDirection: SwipeDirection) {
         
         switch handlePosition {
-            
         case .Top:
             return(.Down, .Up)
-            
         case .Right:
             return(.Left, .Right)
-            
         case .Bottom:
             return(.Up, .Down)
-            
         case .Left:
             return(.Right, .Left)
         }
