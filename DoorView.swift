@@ -46,6 +46,7 @@ protocol DoorViewDelegate {
         door = configuredDoor
         
         super.init(coder: aDecoder)
+        self.backgroundColor = UIColor.clearColor()
     }
     
     override init(frame: CGRect) {
@@ -54,6 +55,7 @@ protocol DoorViewDelegate {
         door = configuredDoor
         
         super.init(frame: frame)
+        self.backgroundColor = UIColor.clearColor()
     }
     
     convenience init(door: Door, frame: CGRect = CGRect.zero) {
@@ -72,12 +74,10 @@ protocol DoorViewDelegate {
         openingLayer.frame = self.bounds
         openingLayer.backgroundColor = UIColor.whiteColor().CGColor
         
-        /// handleLayer has several possble positions
-        /// width and height are given assuming handle is vertical (i.e. skinny and tall, as if on left)
-        let handleFrame: CGRect
+        /// handleLayer has several possble positions so it requires some extra configuration
         let handlePosition: CGPoint
-        let width: CGFloat = 10
-        let height: CGFloat = 30
+        let narrowEdge: CGFloat = 10
+        let wideEdge: CGFloat = 50
         let doorMidX = baseLayer.bounds.midX
         let doorMaxX = baseLayer.bounds.maxX
         let doorMidY = baseLayer.bounds.midY
@@ -87,26 +87,27 @@ protocol DoorViewDelegate {
         switch self.door.handlePosition {
         case .Bottom:
             handlePosition = CGPointMake(doorMidX, doorMaxY - inset)
-            handleLayer.bounds.size.width = height
-            handleLayer.bounds.size.height = width
+            handleLayer.bounds.size.width = wideEdge
+            handleLayer.bounds.size.height = narrowEdge
         case .Left:
             handlePosition = CGPointMake(inset, doorMidY - inset)
-            handleLayer.bounds.size.width = width
-            handleLayer.bounds.size.height = height
+            handleLayer.bounds.size.width = narrowEdge
+            handleLayer.bounds.size.height = wideEdge
 
         case .Right:
             handlePosition = CGPointMake(doorMaxX - inset, doorMidY)
-            handleLayer.bounds.size.width = width
-            handleLayer.bounds.size.height = height
+            handleLayer.bounds.size.width = narrowEdge
+            handleLayer.bounds.size.height = wideEdge
 
         case .Top:
-            handlePosition = CGPointMake(doorMidX, inset - inset)
-            handleLayer.bounds.size.width = height
-            handleLayer.bounds.size.height = width
+            handlePosition = CGPointMake(doorMidX, inset)
+            handleLayer.bounds.size.width = wideEdge
+            handleLayer.bounds.size.height = narrowEdge
         }
         
         handleLayer.anchorPoint = CGPointMake(0.5, 0.5)
         handleLayer.position = handlePosition
+        handleLayer.cornerRadius = 3.0
         handleLayer.backgroundColor = UIColor.blueColor().CGColor
         
         /// Construct layer hierarchy
@@ -114,7 +115,8 @@ protocol DoorViewDelegate {
         baseLayer.addSublayer(openingLayer)
         self.layer.addSublayer(baseLayer)
     }
-}
+    
+    }
 
 
 

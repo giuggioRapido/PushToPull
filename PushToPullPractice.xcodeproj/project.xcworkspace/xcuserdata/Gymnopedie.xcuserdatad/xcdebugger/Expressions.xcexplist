@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<VariablesViewState
+   version = "1.0">
+   <ContextStates>
+      <ContextState
+         contextName = "ViewController.didWalkThroughDoor(DoorView) -&gt; ():ViewController.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "self.view.subviews">
+            </PersistentString>
+            <PersistentString
+               value = "self.currentDoorView">
+            </PersistentString>
+            <PersistentString
+               value = "self.nextDoorView">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "ViewController.addNextDoorView(DoorView) -&gt; ():ViewController.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "nextDoorView">
+            </PersistentString>
+            <PersistentString
+               value = "currentDoorView">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "ViewController.removeOldDoorView(DoorView) -&gt; ():ViewController.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "self.view.subviews">
+            </PersistentString>
+            <PersistentString
+               value = "nextDoorView">
+            </PersistentString>
+            <PersistentString
+               value = "currentDoorView">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+   </ContextStates>
+</VariablesViewState>

@@ -18,6 +18,7 @@
 		DC31DCB11C83F93F00B7BFAC /* PushToPullPracticeUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC31DCB01C83F93F00B7BFAC /* PushToPullPracticeUITests.swift */; };
 		DC5386A41C88EB5B00999F49 /* Door.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC5386A31C88EB5B00999F49 /* Door.swift */; };
 		DC5386A91C8A026500999F49 /* DoorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC5386A81C8A026500999F49 /* DoorView.swift */; };
+		DC9222C01CAA4BFB00C6C32D /* UIViewExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC9222BF1CAA4BFB00C6C32D /* UIViewExtensions.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -56,6 +57,7 @@
 		DC5386A31C88EB5B00999F49 /* Door.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Door.swift; path = ../Door.swift; sourceTree = "<group>"; };
 		DC5386A51C88FBEF00999F49 /* DoorPractice.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = DoorPractice.playground; sourceTree = "<group>"; };
 		DC5386A81C8A026500999F49 /* DoorView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DoorView.swift; path = ../DoorView.swift; sourceTree = "<group>"; };
+		DC9222BF1CAA4BFB00C6C32D /* UIViewExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIViewExtensions.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -109,6 +111,7 @@
 			children = (
 				DC31DC901C83F93E00B7BFAC /* AppDelegate.swift */,
 				DC31DC921C83F93E00B7BFAC /* ViewController.swift */,
+				DC9222BF1CAA4BFB00C6C32D /* UIViewExtensions.swift */,
 				DC5386A31C88EB5B00999F49 /* Door.swift */,
 				DC034FCB1CA0E8F800A00886 /* Stage.swift */,
 				DC5386A81C8A026500999F49 /* DoorView.swift */,
@@ -274,6 +277,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				DC5386A91C8A026500999F49 /* DoorView.swift in Sources */,
+				DC9222C01CAA4BFB00C6C32D /* UIViewExtensions.swift in Sources */,
 				DC31DC931C83F93E00B7BFAC /* ViewController.swift in Sources */,
 				DC5386A41C88EB5B00999F49 /* Door.swift in Sources */,
 				DC31DC911C83F93E00B7BFAC /* AppDelegate.swift in Sources */,

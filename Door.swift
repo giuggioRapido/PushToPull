@@ -104,7 +104,7 @@ struct DoorLogicConfigurer: ConfiguresDoors {
         return configDoor
     }
     
-    /// Similarly in fucntion to the method above, but instead takes only a HandlePosition value as
+    /// Similar in function to the method above, but instead takes only a HandlePosition value as
     /// a parameter and returns a tuple of the configured values for other door properties.
     func configureSlidingLogicForHandlePosition(handlePosition: HandlePosition) -> (slideDirection: SlideDirection, swipeDirection: SwipeDirection) {
         

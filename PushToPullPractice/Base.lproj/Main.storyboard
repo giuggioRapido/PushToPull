@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10116" systemVersion="15D21" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10116" systemVersion="15E65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="BYZ-38-t0r">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
@@ -20,6 +20,7 @@
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="inJ-Xc-fJL" customClass="DoorView" customModule="PushToPullPractice" customModuleProvider="target">
                                 <rect key="frame" x="150" y="75" width="300" height="450"/>
+                                <color key="backgroundColor" red="0.98539724689999997" green="1" blue="0.97072206279999995" alpha="1" colorSpace="calibratedRGB"/>
                                 <gestureRecognizers/>
                                 <connections>
                                     <outletCollection property="gestureRecognizers" destination="QRH-7Q-CrA" appends="YES" id="mcJ-Uq-JiK"/>
@@ -40,6 +41,10 @@
                     </view>
                     <connections>
                         <outlet property="currentDoorView" destination="inJ-Xc-fJL" id="XCf-kb-gMw"/>
+                        <outletCollection property="swipeRecognizers" destination="QRH-7Q-CrA" collectionClass="NSMutableArray" id="7la-rd-eM7"/>
+                        <outletCollection property="swipeRecognizers" destination="FbH-La-IQX" collectionClass="NSMutableArray" id="plQ-za-juT"/>
+                        <outletCollection property="swipeRecognizers" destination="tu7-X4-yw5" collectionClass="NSMutableArray" id="eBf-hd-dwK"/>
+                        <outletCollection property="swipeRecognizers" destination="HQ4-FI-MRo" collectionClass="NSMutableArray" id="eM8-jK-X8C"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
