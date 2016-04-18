@@ -12,21 +12,28 @@ class ViewController: UIViewController {
     
     @IBOutlet weak var currentDoorView: DoorView! {
         didSet {
-            UIView.animateWithDuration(1.0, animations: {
+//            UIView.animateWithDuration(0.5, animations: {
+//                self.currentDoorView.transform = CGAffineTransformIdentity
+//            }) { (completed) in
+//            }
+            
+            UIView.animateWithDuration(0.5, delay: 0, options: UIViewAnimationOptions.AllowUserInteraction, animations: {
                 self.currentDoorView.transform = CGAffineTransformIdentity
             }) { (completed) in
             }
         }
     }
-    var nextDoorView: DoorView? {
+    
+    var nextDoorView: DoorView! {
         didSet {
             
         }
     }
-    var initialDoorViewFrame: CGRect = CGRect.zero
-    var stage = Stage(numberOfDoors: 50)
     
     @IBOutlet var swipeRecognizers: [UISwipeGestureRecognizer]!
+    var initialDoorViewFrame: CGRect = CGRect.zero
+    var stage = Stage(numberOfDoors: 10)
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -55,22 +62,20 @@ class ViewController: UIViewController {
         currentDoorView.addSublayers()
         initialDoorViewFrame = currentDoorView.frame
         
-        guard nextDoorView != nil else {
-            return
-        }
-        nextDoorView?.frame = initialDoorViewFrame
-        nextDoorView?.delegate = self
-        nextDoorView?.addSublayers()
-        nextDoorView!.centerInSuperview()
-        nextDoorView!.scaleByFactor(0.25)
-        self.view.insertSubview(nextDoorView!, belowSubview: currentDoorView)
+        
+        nextDoorView.frame = initialDoorViewFrame
+        nextDoorView.delegate = self
+        nextDoorView.addSublayers()
+        nextDoorView.centerInSuperview()
+        nextDoorView.scaleByFactor(0.25)
+        self.view.insertSubview(nextDoorView, belowSubview: currentDoorView)
     }
     
     func configureNextDoorView() {
         
     }
     
-    func addNextDoorView(oldDoor: DoorView) {
+    func addNextDoorView() {
         
         if let firstDoor = stage.doors.first {
             nextDoorView = DoorView(door: firstDoor)
@@ -82,31 +87,40 @@ class ViewController: UIViewController {
             return
         }
         
-        nextDoorView!.frame = currentDoorView.frame
-        nextDoorView?.delegate = self
-        nextDoorView?.addSublayers()
-        nextDoorView!.centerInSuperview()
-        nextDoorView!.scaleByFactor(0.25)
+        nextDoorView.frame = currentDoorView.frame
+        nextDoorView.delegate = self
+        nextDoorView.addSublayers()
+        nextDoorView.centerInSuperview()
+        nextDoorView.scaleByFactor(0.25)
         
-        self.view.insertSubview(nextDoorView!, belowSubview: currentDoorView)
+        self.view.insertSubview(nextDoorView, belowSubview: currentDoorView)
     }
     
     @IBAction func swipe(sender: UISwipeGestureRecognizer) {
         if (sender.direction.rawValue ==  currentDoorView.door.swipeDirection.rawValue) {
-            self.currentDoorView.open()
-            print(currentDoorView.gestureRecognizers!.count)
+            self.currentDoorView.open(withDuration: 0.5)
         }
     }
+    
+    override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
+        print("touches began")
+    }
+    
 }
 
 extension ViewController: DoorViewDelegate {
     func doorDidOpen(door: DoorView) {
         print("Door did open")
+        
         currentDoorView = nextDoorView
+        
         for recognizer in self.swipeRecognizers {
             currentDoorView.addGestureRecognizer(recognizer)
         }
-        addNextDoorView(door)
+        
+        self.view.insertSubview(door, belowSubview: nextDoorView)
+        
+        addNextDoorView()
     }
     
     func didWalkThroughDoor(door: DoorView) {
@@ -117,7 +131,7 @@ extension ViewController: DoorViewDelegate {
     func removeOldDoorView(oldView: DoorView) {
         oldView.delegate = nil
         oldView.removeFromSuperview()
-        
+        print("old view removed")
     }
     
     

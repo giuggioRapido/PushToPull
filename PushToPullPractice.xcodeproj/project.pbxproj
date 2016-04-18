@@ -85,6 +85,33 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		DC2ECC551CBC4E5700CA7B4D /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				DC9222BF1CAA4BFB00C6C32D /* UIViewExtensions.swift */,
+				DC5386A81C8A026500999F49 /* DoorView.swift */,
+				DC174AA41CA3001800F26652 /* DoorViewAnimations.swift */,
+			);
+			name = Views;
+			sourceTree = "<group>";
+		};
+		DC2ECC561CBC4E6600CA7B4D /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				DC5386A31C88EB5B00999F49 /* Door.swift */,
+				DC034FCB1CA0E8F800A00886 /* Stage.swift */,
+			);
+			name = Models;
+			sourceTree = "<group>";
+		};
+		DC2ECC571CBC4E6C00CA7B4D /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				DC31DC921C83F93E00B7BFAC /* ViewController.swift */,
+			);
+			name = Controllers;
+			sourceTree = "<group>";
+		};
 		DC31DC841C83F93E00B7BFAC = {
 			isa = PBXGroup;
 			children = (
@@ -110,12 +137,9 @@
 			isa = PBXGroup;
 			children = (
 				DC31DC901C83F93E00B7BFAC /* AppDelegate.swift */,
-				DC31DC921C83F93E00B7BFAC /* ViewController.swift */,
-				DC9222BF1CAA4BFB00C6C32D /* UIViewExtensions.swift */,
-				DC5386A31C88EB5B00999F49 /* Door.swift */,
-				DC034FCB1CA0E8F800A00886 /* Stage.swift */,
-				DC5386A81C8A026500999F49 /* DoorView.swift */,
-				DC174AA41CA3001800F26652 /* DoorViewAnimations.swift */,
+				DC2ECC561CBC4E6600CA7B4D /* Models */,
+				DC2ECC571CBC4E6C00CA7B4D /* Controllers */,
+				DC2ECC551CBC4E5700CA7B4D /* Views */,
 				DC31DC941C83F93E00B7BFAC /* Main.storyboard */,
 				DC31DC971C83F93E00B7BFAC /* Assets.xcassets */,
 				DC31DC991C83F93E00B7BFAC /* LaunchScreen.storyboard */,

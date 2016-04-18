@@ -3,16 +3,16 @@
    version = "1.0">
    <ContextStates>
       <ContextState
-         contextName = "ViewController.didWalkThroughDoor(DoorView) -&gt; ():ViewController.swift">
+         contextName = "ViewController.removeOldDoorView(DoorView) -&gt; ():ViewController.swift">
          <PersistentStrings>
             <PersistentString
                value = "self.view.subviews">
             </PersistentString>
             <PersistentString
-               value = "self.currentDoorView">
+               value = "nextDoorView">
             </PersistentString>
             <PersistentString
-               value = "self.nextDoorView">
+               value = "currentDoorView">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
@@ -28,16 +28,38 @@
          </PersistentStrings>
       </ContextState>
       <ContextState
-         contextName = "ViewController.removeOldDoorView(DoorView) -&gt; ():ViewController.swift">
+         contextName = "ViewController.(currentDoorView.didset).(closure #1):ViewController.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "self.currentDoorView.userInteractionEnabled">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "ViewController.didWalkThroughDoor(DoorView) -&gt; ():ViewController.swift">
          <PersistentStrings>
             <PersistentString
                value = "self.view.subviews">
             </PersistentString>
             <PersistentString
-               value = "nextDoorView">
+               value = "self.currentDoorView">
             </PersistentString>
             <PersistentString
-               value = "currentDoorView">
+               value = "self.nextDoorView">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "ViewController.doorDidOpen(DoorView) -&gt; ():ViewController.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "self.view.subviews">
+            </PersistentString>
+            <PersistentString
+               value = "self.currentDoorView">
+            </PersistentString>
+            <PersistentString
+               value = "self.nextDoorView">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
