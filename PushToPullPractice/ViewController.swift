@@ -82,17 +82,21 @@ class ViewController: UIViewController {
     }
     
     @IBAction func swipe(sender: UISwipeGestureRecognizer) {
-        if let pl = currentDoorView.openingLayer.presentationLayer() {
-            currentDoorView.openingLayer.backgroundColor = pl.backgroundColor
-            //currentDoorView.openingLayer.removeAllAnimations()
-            
-        } else {
-            print("else block hit")
-        }
-        
         
         if (sender.direction.rawValue ==  currentDoorView.door.swipeDirection.rawValue) {
-            self.currentDoorView.open(withDuration: 0.5)
+            /// If the door is currently animating, we grab the backround color at the moment of the correct swipe from the presentation layer. We set the model layer's bg color to match. 
+            /// This allows us to freeze the color at the right moment, then in the CATransaction's
+            /// completion handler, check that color against the target color.
+            /// This is how we test for SUCCESSFUL completion of the animation (e.g. the door turns full red)
+            /// rather than "failure" (the door is opened before full red is reached). CATransactions seem
+            /// to lack this functionality, unlike UIViews where the completion block has an associated Bool.
+            if let pl = currentDoorView.openingLayer.presentationLayer() {
+                currentDoorView.openingLayer.backgroundColor = pl.backgroundColor
+            } else {
+                print("currentDoorView.openingLayer.presentationLayer() returned nil")
+            }
+
+            self.currentDoorView.open(withDuration: stage.doorOpenDuration)
         }
     }
     
@@ -104,32 +108,32 @@ class ViewController: UIViewController {
         }
         
         addNextDoorView()
-        beginTimer()
+        //beginTimer()
     }
     
     func beginTimer() {
+       
+        let targetColor = UIColor.init(red: 235.0/255, green: 50.0/255, blue: 50.0/255, alpha: 1.0).CGColor
         
         let countDown = {
             (completion:(() -> ())?) in
             CATransaction.begin()
             CATransaction.setAnimationDuration(self.stage.timeLimit)
-            let targetColor = UIColor.init(red: 235.0/255, green: 50.0/255, blue: 50.0/255, alpha: 1.0)
-            self.currentDoorView.openingLayer.backgroundColor = targetColor.CGColor
+            CATransaction.setCompletionBlock(completion)
+            self.currentDoorView.openingLayer.backgroundColor = targetColor
             CATransaction.setAnimationTimingFunction(CAMediaTimingFunction.init(name: kCAMediaTimingFunctionLinear))
             CATransaction.commit()
         }
         
         countDown {
             let currentColor = self.currentDoorView.openingLayer.backgroundColor
-            let targetColor = UIColor.init(red: 235.0/255, green: 50.0/255, blue: 50.0/255, alpha: 1.0).CGColor
             let colorsEqual = CGColorEqualToColor(currentColor, targetColor)
             if (colorsEqual) {
-                let alert = UIAlertController.init(title: "Dead", message: nil, preferredStyle: UIAlertControllerStyle.Alert)
+                let alert = UIAlertController.init(title: "Dead.", message: nil, preferredStyle: UIAlertControllerStyle.Alert)
                 self.presentViewController(alert, animated: true, completion: nil)
             }
         }
     }
-    
     
 }
 

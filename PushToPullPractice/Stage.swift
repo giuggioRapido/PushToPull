@@ -11,6 +11,7 @@ import Foundation
 struct Stage {
     var doors: [Door]
     var timeLimit: Double = 1.0
+    var doorOpenDuration: Double = 0.5
     
     static func generateRandomDoors(doorCount: Int) -> [Door] {
         var arrayOfDoors: [Door] = []
