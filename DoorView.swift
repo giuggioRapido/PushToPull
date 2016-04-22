@@ -64,9 +64,10 @@ protocol DoorViewDelegate {
     }
     
     // FIXME: Get the layers added within the class (within/after init). Currently method is being called in VC
+    // The problem with adding it eariler than viewWill/DidAppear is that it seems autolayout only determines the proper frame for the first door that late, and adding sublayer before then results in the wrong frames for the sublayers (they still reflect the pre-autolayout-ed frame)
     func addSublayers() {
         /// baseLayer ends up looking like a door frame
-        baseLayer.borderWidth = 10
+        baseLayer.borderWidth = 8
         baseLayer.frame = self.bounds
         baseLayer.masksToBounds = true
         
@@ -83,7 +84,7 @@ protocol DoorViewDelegate {
         let doorMidY = baseLayer.bounds.midY
         let doorMaxY = baseLayer.bounds.maxY
         let inset: CGFloat = 30
-
+        
         switch self.door.handlePosition {
         case .Bottom:
             handlePosition = CGPointMake(doorMidX, doorMaxY - inset)
@@ -93,12 +94,12 @@ protocol DoorViewDelegate {
             handlePosition = CGPointMake(inset, doorMidY - inset)
             handleLayer.bounds.size.width = narrowEdge
             handleLayer.bounds.size.height = wideEdge
-
+            
         case .Right:
             handlePosition = CGPointMake(doorMaxX - inset, doorMidY)
             handleLayer.bounds.size.width = narrowEdge
             handleLayer.bounds.size.height = wideEdge
-
+            
         case .Top:
             handlePosition = CGPointMake(doorMidX, inset)
             handleLayer.bounds.size.width = wideEdge
@@ -116,7 +117,7 @@ protocol DoorViewDelegate {
         self.layer.addSublayer(baseLayer)
     }
     
-    }
+}
 
 
 

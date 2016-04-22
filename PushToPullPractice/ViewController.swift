@@ -12,11 +12,8 @@ class ViewController: UIViewController {
     
     @IBOutlet weak var currentDoorView: DoorView! {
         didSet {
-//            UIView.animateWithDuration(0.5, animations: {
-//                self.currentDoorView.transform = CGAffineTransformIdentity
-//            }) { (completed) in
-//            }
-            
+            /// Whenever we set this, we assume it had been scaled down as nextDoorView,
+            /// so we scale it back up to the original size.
             UIView.animateWithDuration(0.5, delay: 0, options: UIViewAnimationOptions.AllowUserInteraction, animations: {
                 self.currentDoorView.transform = CGAffineTransformIdentity
             }) { (completed) in
@@ -24,21 +21,16 @@ class ViewController: UIViewController {
         }
     }
     
-    var nextDoorView: DoorView! {
-        didSet {
-            
-        }
-    }
+    var nextDoorView: DoorView!
     
     @IBOutlet var swipeRecognizers: [UISwipeGestureRecognizer]!
     var initialDoorViewFrame: CGRect = CGRect.zero
     var stage = Stage(numberOfDoors: 10)
     
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        /// assign stage's first door to currentDoorView:
+        /// Assign stage's first door to currentDoorView, then remove door from stage.
         guard stage.doors.count > 0 else {
             print("stage has no doors")
             return
@@ -46,6 +38,7 @@ class ViewController: UIViewController {
         currentDoorView.door = stage.doors.first!
         stage.doors.removeFirst()
         
+        /// Assign the new first door to nextDoorView, then remove from stage.
         guard stage.doors.count > 0 else {
             print("stage has no doors")
             return
@@ -71,19 +64,12 @@ class ViewController: UIViewController {
         self.view.insertSubview(nextDoorView, belowSubview: currentDoorView)
     }
     
-    func configureNextDoorView() {
-        
-    }
-    
     func addNextDoorView() {
         
         if let firstDoor = stage.doors.first {
             nextDoorView = DoorView(door: firstDoor)
             stage.doors.removeFirst()
-            
-        }
-        
-        guard nextDoorView != nil else {
+        } else {
             return
         }
         
@@ -92,46 +78,75 @@ class ViewController: UIViewController {
         nextDoorView.addSublayers()
         nextDoorView.centerInSuperview()
         nextDoorView.scaleByFactor(0.25)
-        
         self.view.insertSubview(nextDoorView, belowSubview: currentDoorView)
     }
     
     @IBAction func swipe(sender: UISwipeGestureRecognizer) {
+        if let pl = currentDoorView.openingLayer.presentationLayer() {
+            currentDoorView.openingLayer.backgroundColor = pl.backgroundColor
+            //currentDoorView.openingLayer.removeAllAnimations()
+            
+        } else {
+            print("else block hit")
+        }
+        
+        
         if (sender.direction.rawValue ==  currentDoorView.door.swipeDirection.rawValue) {
             self.currentDoorView.open(withDuration: 0.5)
         }
     }
     
-    override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
-        print("touches began")
-    }
-    
-}
-
-extension ViewController: DoorViewDelegate {
-    func doorDidOpen(door: DoorView) {
-        print("Door did open")
-        
+    func updateDoors() {
         currentDoorView = nextDoorView
         
         for recognizer in self.swipeRecognizers {
             currentDoorView.addGestureRecognizer(recognizer)
         }
         
-        self.view.insertSubview(door, belowSubview: nextDoorView)
-        
         addNextDoorView()
+        beginTimer()
+    }
+    
+    func beginTimer() {
+        
+        let countDown = {
+            (completion:(() -> ())?) in
+            CATransaction.begin()
+            CATransaction.setAnimationDuration(self.stage.timeLimit)
+            let targetColor = UIColor.init(red: 235.0/255, green: 50.0/255, blue: 50.0/255, alpha: 1.0)
+            self.currentDoorView.openingLayer.backgroundColor = targetColor.CGColor
+            CATransaction.setAnimationTimingFunction(CAMediaTimingFunction.init(name: kCAMediaTimingFunctionLinear))
+            CATransaction.commit()
+        }
+        
+        countDown {
+            let currentColor = self.currentDoorView.openingLayer.backgroundColor
+            let targetColor = UIColor.init(red: 235.0/255, green: 50.0/255, blue: 50.0/255, alpha: 1.0).CGColor
+            let colorsEqual = CGColorEqualToColor(currentColor, targetColor)
+            if (colorsEqual) {
+                let alert = UIAlertController.init(title: "Dead", message: nil, preferredStyle: UIAlertControllerStyle.Alert)
+                self.presentViewController(alert, animated: true, completion: nil)
+            }
+        }
+    }
+    
+    
+}
+
+extension ViewController: DoorViewDelegate {
+    
+    func doorDidOpen(door: DoorView) {
+        self.view.sendSubviewToBack(door)
+        updateDoors()
     }
     
     func didWalkThroughDoor(door: DoorView) {
-        print("Did walk through door")
         removeOldDoorView(door)
     }
     
     func removeOldDoorView(oldView: DoorView) {
         oldView.delegate = nil
         oldView.removeFromSuperview()
-        print("old view removed")
     }
     
     
