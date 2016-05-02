@@ -2,4 +2,148 @@
 <Bucket
    type = "1"
    version = "2.0">
+   <Breakpoints>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "PushToPullPractice/ViewController.swift"
+            timestampString = "483388197.148021"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "153"
+            endingLineNumber = "153"
+            landmarkName = "didWalkThroughDoor(_:)"
+            landmarkType = "5">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "PushToPullPractice.ViewController.didWalkThroughDoor (PushToPullPractice.DoorView) -&gt; ()"
+                  moduleName = "PushToPullPractice"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/Gymnopedie/Google%20Drive/Documents/Turn%20to%20Tech/Misc./PushToPullPractice/PushToPullPractice/ViewController.swift"
+                  timestampString = "483912498.559852"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "154"
+                  endingLineNumber = "154"
+                  offsetFromSymbolStart = "28">
+               </Location>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "protocol witness for PushToPullPractice.DoorViewDelegate.didWalkThroughDoor (PushToPullPractice.DoorView) -&gt; () in conformance PushToPullPractice.ViewController : PushToPullPractice.DoorViewDelegate in PushToPullPractice"
+                  moduleName = "PushToPullPractice"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/Gymnopedie/Google%20Drive/Documents/Turn%20to%20Tech/Misc./PushToPullPractice/PushToPullPractice/ViewController.swift"
+                  timestampString = "483912498.5602"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "153"
+                  endingLineNumber = "153"
+                  offsetFromSymbolStart = "12">
+               </Location>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "dynamic PushToPullPractice.ViewController.didWalkThroughDoor (PushToPullPractice.DoorView) -&gt; ()"
+                  moduleName = "PushToPullPractice"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/Gymnopedie/Google%20Drive/Documents/Turn%20to%20Tech/Misc./PushToPullPractice/PushToPullPractice/ViewController.swift"
+                  timestampString = "483912498.560429"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "153"
+                  endingLineNumber = "153"
+                  offsetFromSymbolStart = "12">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "PushToPullPractice/ViewController.swift"
+            timestampString = "483388197.148021"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "147"
+            endingLineNumber = "147"
+            landmarkName = "doorDidOpen(_:)"
+            landmarkType = "5">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "PushToPullPractice.ViewController.doorDidOpen (PushToPullPractice.DoorView) -&gt; ()"
+                  moduleName = "PushToPullPractice"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/Gymnopedie/Google%20Drive/Documents/Turn%20to%20Tech/Misc./PushToPullPractice/PushToPullPractice/ViewController.swift"
+                  timestampString = "483912498.562527"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "148"
+                  endingLineNumber = "148"
+                  offsetFromSymbolStart = "28">
+               </Location>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "protocol witness for PushToPullPractice.DoorViewDelegate.doorDidOpen (PushToPullPractice.DoorView) -&gt; () in conformance PushToPullPractice.ViewController : PushToPullPractice.DoorViewDelegate in PushToPullPractice"
+                  moduleName = "PushToPullPractice"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/Gymnopedie/Google%20Drive/Documents/Turn%20to%20Tech/Misc./PushToPullPractice/PushToPullPractice/ViewController.swift"
+                  timestampString = "483912498.562723"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "147"
+                  endingLineNumber = "147"
+                  offsetFromSymbolStart = "12">
+               </Location>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "dynamic PushToPullPractice.ViewController.doorDidOpen (PushToPullPractice.DoorView) -&gt; ()"
+                  moduleName = "PushToPullPractice"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/Gymnopedie/Google%20Drive/Documents/Turn%20to%20Tech/Misc./PushToPullPractice/PushToPullPractice/ViewController.swift"
+                  timestampString = "483912498.562912"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "147"
+                  endingLineNumber = "147"
+                  offsetFromSymbolStart = "12">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "PushToPullPractice/ViewController.swift"
+            timestampString = "483388197.148021"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "157"
+            endingLineNumber = "157"
+            landmarkName = "removeOldDoorView(_:)"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+   </Breakpoints>
 </Bucket>

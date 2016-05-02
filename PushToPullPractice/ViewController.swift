@@ -14,17 +14,13 @@ class ViewController: UIViewController {
         didSet {
             /// Whenever we set this, we assume it had been scaled down as nextDoorView,
             /// so we scale it back up to the original size.
-            UIView.animateWithDuration(0.5, delay: 0, options: UIViewAnimationOptions.AllowUserInteraction, animations: {
-                self.currentDoorView.transform = CGAffineTransformIdentity
-            }) { (completed) in
-            }
+            scaleUpDoorView(currentDoorView, withDuration: stage.doorOpenDuration)
         }
     }
     
     var nextDoorView: DoorView!
     
     @IBOutlet var swipeRecognizers: [UISwipeGestureRecognizer]!
-    var initialDoorViewFrame: CGRect = CGRect.zero
     var stage = Stage(numberOfDoors: 10)
     
     override func viewDidLoad() {
@@ -53,10 +49,8 @@ class ViewController: UIViewController {
         
         currentDoorView.delegate = self
         currentDoorView.addSublayers()
-        initialDoorViewFrame = currentDoorView.frame
         
-        
-        nextDoorView.frame = initialDoorViewFrame
+        nextDoorView.frame = currentDoorView.frame
         nextDoorView.delegate = self
         nextDoorView.addSublayers()
         nextDoorView.centerInSuperview()
@@ -84,7 +78,7 @@ class ViewController: UIViewController {
     @IBAction func swipe(sender: UISwipeGestureRecognizer) {
         
         if (sender.direction.rawValue ==  currentDoorView.door.swipeDirection.rawValue) {
-            /// If the door is currently animating, we grab the backround color at the moment of the correct swipe from the presentation layer. We set the model layer's bg color to match. 
+            /// If the door is currently animating, we grab the backround color at the moment of the correct swipe from the presentation layer. We set the model layer's bg color to match.
             /// This allows us to freeze the color at the right moment, then in the CATransaction's
             /// completion handler, check that color against the target color.
             /// This is how we test for SUCCESSFUL completion of the animation (e.g. the door turns full red)
@@ -95,7 +89,7 @@ class ViewController: UIViewController {
             } else {
                 print("currentDoorView.openingLayer.presentationLayer() returned nil")
             }
-
+            
             self.currentDoorView.open(withDuration: stage.doorOpenDuration)
         }
     }
@@ -108,11 +102,18 @@ class ViewController: UIViewController {
         }
         
         addNextDoorView()
-        //beginTimer()
+        beginTimer()
+    }
+    
+    func scaleUpDoorView(view: DoorView, withDuration duration: Double) {
+        UIView.animateWithDuration(duration, delay: 0, options: UIViewAnimationOptions.AllowUserInteraction, animations: {
+            view.transform = CGAffineTransformIdentity
+        }) { (completed) in
+        }
     }
     
     func beginTimer() {
-       
+        
         let targetColor = UIColor.init(red: 235.0/255, green: 50.0/255, blue: 50.0/255, alpha: 1.0).CGColor
         
         let countDown = {
@@ -121,7 +122,7 @@ class ViewController: UIViewController {
             CATransaction.setAnimationDuration(self.stage.timeLimit)
             CATransaction.setCompletionBlock(completion)
             self.currentDoorView.openingLayer.backgroundColor = targetColor
-            CATransaction.setAnimationTimingFunction(CAMediaTimingFunction.init(name: kCAMediaTimingFunctionLinear))
+            CATransaction.setAnimationTimingFunction(CAMediaTimingFunction.init(name: kCAMediaTimingFunctionEaseIn))
             CATransaction.commit()
         }
         
@@ -129,10 +130,14 @@ class ViewController: UIViewController {
             let currentColor = self.currentDoorView.openingLayer.backgroundColor
             let colorsEqual = CGColorEqualToColor(currentColor, targetColor)
             if (colorsEqual) {
-                let alert = UIAlertController.init(title: "Dead.", message: nil, preferredStyle: UIAlertControllerStyle.Alert)
-                self.presentViewController(alert, animated: true, completion: nil)
+                self.presentGameOverAlert()
             }
         }
+    }
+    
+    func presentGameOverAlert() {
+        let alert = UIAlertController.init(title: "Dead.", message: nil, preferredStyle: UIAlertControllerStyle.Alert)
+        self.presentViewController(alert, animated: true, completion: nil)
     }
     
 }
@@ -140,6 +145,7 @@ class ViewController: UIViewController {
 extension ViewController: DoorViewDelegate {
     
     func doorDidOpen(door: DoorView) {
+        door.walkThroughDoor(stage.doorOpenDuration)
         self.view.sendSubviewToBack(door)
         updateDoors()
     }

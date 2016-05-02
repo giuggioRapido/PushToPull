@@ -8,12 +8,17 @@
 
 import Foundation
 
+enum DoorType {
+    case Sliding
+    case Hinged
+}
+
 struct Stage {
     var doors: [Door]
     var timeLimit: Double = 1.0
-    var doorOpenDuration: Double = 0.5
+    var doorOpenDuration: Double = 0.51
     
-    static func generateRandomDoors(doorCount: Int) -> [Door] {
+    private static func generateRandomSlidingDoors(doorCount: Int) -> [Door] {
         var arrayOfDoors: [Door] = []
         
         for _ in 0..<doorCount {
@@ -30,7 +35,9 @@ struct Stage {
         return arrayOfDoors
     }
     
+    
     init(numberOfDoors: Int) {
-        doors = Stage.generateRandomDoors(numberOfDoors)
+        doors = Stage.generateRandomSlidingDoors(numberOfDoors)
+        
     }
 }

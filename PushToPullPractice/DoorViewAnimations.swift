@@ -45,11 +45,8 @@ extension DoorView {
                 CATransaction.commit()
             }
             
-            /// Actual call to slideAnimation closure.
-            /// Upon completion, notify delegate and call walkThroughDoor()
             slideAnimation({
                 self.delegate?.doorDidOpen(self)
-                self.walkThroughDoor(duration)
             })
         }
         
@@ -62,7 +59,7 @@ extension DoorView {
         }
     }
     
-    func walkThroughDoor(duration: Double) {
+    func walkThroughDoor(duration: Double = 1.0) {
         let scaleAnimation = {
             (completion:(() -> ())?) in
             CATransaction.begin()
@@ -75,5 +72,5 @@ extension DoorView {
             self.delegate?.didWalkThroughDoor(self)
         })
     }
- 
+    
 }

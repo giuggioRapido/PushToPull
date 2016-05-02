@@ -7,7 +7,6 @@
 //
 
 import Foundation
-import UIKit
 
 // MARK: Enums
 /// The following enums are used to describe properties of Door-related types
@@ -48,41 +47,33 @@ enum GestureZone {
     case Top, Right, Bottom, Left
 }
 
+enum PushOrPull: UInt {
+    case Push, Pull
+}
+
 // Mark: Protocols
 protocol Door {
     var handlePosition: HandlePosition {get set}
-    var swipeDirection: SwipeDirection {get set}
-    
-    func open()
+    var swipeDirection: SwipeDirection {get}
 }
 
 protocol Sliding {
-    var slideDirection: SlideDirection {get set}
+    var slideDirection: SlideDirection {get}
 }
 
-protocol ConfiguresDoors {
-    static func configureSlidingDoor(door: protocol <Door, Sliding>) -> protocol <Door, Sliding>
-}
-
-// Mark: Protocol Extensions
-extension Door where Self: Sliding {
-    
-    func open() {
-    }
-    
-    func close()  {
-    }
+protocol Hinged {
+    var hingePosition: HingePosition {get set}
+    var gestureZone: GestureZone {get set}
 }
 
 
-// Mark: Structs
-struct DoorLogicConfigurer: ConfiguresDoors {
+struct DoorLogicConfigurer {
     /// Takes a sliding door instance as a parameter and switches on the door's handle position.
     /// Returns an instance of a door with properties populated by configured values.
-   static func configureSlidingDoor(door: protocol <Door, Sliding>) -> protocol <Door, Sliding> {
-    
+    static func configureSlidingDoor(door: protocol <Door, Sliding>) -> protocol <Door, Sliding> {
+        
         var configDoor = SlidingDoor(handlePosition: door.handlePosition)
-    
+        
         switch door.handlePosition {
             
         case .Top:
@@ -106,7 +97,7 @@ struct DoorLogicConfigurer: ConfiguresDoors {
     
     /// Similar in function to the method above, but instead takes only a HandlePosition value as
     /// a parameter and returns a tuple of the configured values for other door properties.
-    func configureSlidingLogicForHandlePosition(handlePosition: HandlePosition) -> (slideDirection: SlideDirection, swipeDirection: SwipeDirection) {
+    static func configureSlidingLogicForHandlePosition(handlePosition: HandlePosition) -> (slideDirection: SlideDirection, swipeDirection: SwipeDirection) {
         
         switch handlePosition {
         case .Top:
@@ -119,17 +110,48 @@ struct DoorLogicConfigurer: ConfiguresDoors {
             return(.Right, .Left)
         }
     }
+    
+    static func configureHingedDoorForHandlePosition(handlePosition: HandlePosition, pushOrPull: PushOrPull) -> (hingePosition: HingePosition, gestureZone: GestureZone, swipeDirection: SwipeDirection) {
+        
+        let hingePosition: HingePosition
+        let gestureZone:GestureZone
+        let swipeDirection: SwipeDirection
+        
+        switch pushOrPull {
+        case .Push:
+            swipeDirection = .Down
+        case .Pull:
+            swipeDirection = .Up
+        }
+        
+        
+        switch handlePosition {
+        case .Top:
+            hingePosition = .Bottom
+            gestureZone = .Bottom
+        case .Right:
+            hingePosition = .Left
+            gestureZone = .Left
+        case .Bottom:
+            hingePosition = .Top
+            gestureZone = .Top
+        case .Left:
+            hingePosition = .Right
+            gestureZone = .Right
+        }
+        
+        return(hingePosition, gestureZone, swipeDirection)
+    }
 }
 
 struct SlidingDoor: Door, Sliding {
     var handlePosition: HandlePosition
     var slideDirection: SlideDirection
     var swipeDirection: SwipeDirection
-
+    
     init(handlePosition: HandlePosition) {
         self.handlePosition = handlePosition
-        let configurer = DoorLogicConfigurer()
-        let configuration = configurer.configureSlidingLogicForHandlePosition(handlePosition)
+        let configuration = DoorLogicConfigurer.configureSlidingLogicForHandlePosition(handlePosition)
         self.slideDirection = configuration.slideDirection
         self.swipeDirection = configuration.swipeDirection
     }
@@ -140,13 +162,30 @@ struct SlidingDoor: Door, Sliding {
 }
 
 
-
-
-//protocol Hinged {
-//    //var hingePosition: HingePosition {get set}
-//    var gestureZone: GestureZone {get set}
-//}
-
+struct HingedDoor: Door, Hinged {
+    var handlePosition: HandlePosition
+    var swipeDirection: SwipeDirection
+    var hingePosition: HingePosition
+    var gestureZone: GestureZone
+    var pushes: Bool
+    var pulls: Bool {
+        return !pushes
+    }
+    
+    init(handlePosition: HandlePosition, pushOrPull: PushOrPull) {
+        self.handlePosition = handlePosition
+        if pushOrPull == .Push {
+            self.pushes = true
+        } else {
+            self.pushes = false
+        }
+        
+        let configuration = DoorLogicConfigurer.configureHingedDoorForHandlePosition(handlePosition, pushOrPull: pushOrPull)
+        self.swipeDirection = configuration.swipeDirection
+        self.gestureZone = configuration.gestureZone
+        self.hingePosition = configuration.hingePosition
+    }
+}
 
 
 
