@@ -47,8 +47,8 @@ enum GestureZone {
     case Top, Right, Bottom, Left
 }
 
-enum PushOrPull: UInt {
-    case Push, Pull
+enum PushOrPull: UInt32{
+    case Push, Pull 
 }
 
 // Mark: Protocols

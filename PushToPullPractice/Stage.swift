@@ -23,21 +23,35 @@ struct Stage {
         
         for _ in 0..<doorCount {
             let randomHandle = arc4random_uniform(4)
-            let handlePosition = HandlePosition(rawValue: randomHandle)
-            guard let hp = handlePosition else {
-                let door = SlidingDoor(handlePosition: .Left)
-                arrayOfDoors.append(door)
-                continue
-            }
-            let door = SlidingDoor(handlePosition: hp)
+            let handlePosition = HandlePosition(rawValue: randomHandle) ?? .Left
+            let door = SlidingDoor(handlePosition: handlePosition)
             arrayOfDoors.append(door)
         }
         return arrayOfDoors
     }
     
-    
-    init(numberOfDoors: Int) {
-        doors = Stage.generateRandomSlidingDoors(numberOfDoors)
+    private static func generateRandomHingedDoors(doorCount: Int) -> [Door] {
+        var arrayOfDoors: [Door] = []
         
+        for _ in 0..<doorCount {
+            let randomHandle = arc4random_uniform(4)
+            let randomPushOrPull = arc4random_uniform(2)
+            let handlePosition = HandlePosition(rawValue: randomHandle) ?? .Left
+            let pushOrPull = PushOrPull(rawValue: randomPushOrPull) ?? .Pull
+        
+            let door = HingedDoor(handlePosition: handlePosition, pushOrPull: pushOrPull)
+            arrayOfDoors.append(door)
+        }
+        return arrayOfDoors
+        
+    }
+    
+    init(numberOfDoors: Int, ofType type: DoorType) {
+        switch type {
+        case .Sliding:
+            doors = Stage.generateRandomSlidingDoors(numberOfDoors)
+        case .Hinged:
+            doors = Stage.generateRandomHingedDoors(numberOfDoors)
+        }
     }
 }

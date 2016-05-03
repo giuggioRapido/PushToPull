@@ -21,7 +21,7 @@ class ViewController: UIViewController {
     var nextDoorView: DoorView!
     
     @IBOutlet var swipeRecognizers: [UISwipeGestureRecognizer]!
-    var stage = Stage(numberOfDoors: 10)
+    var stage = Stage(numberOfDoors: 10, ofType: DoorType.Sliding)
     
     override func viewDidLoad() {
         super.viewDidLoad()
