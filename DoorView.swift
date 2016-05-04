@@ -20,7 +20,7 @@ protocol DoorViewDelegate {
     var door: Door
     var delegate: DoorViewDelegate?
     /// A DoorView has three sublayers:
-    ////a sublayer called openingLayer, which represents "actual" door;
+    ////a sublayer called openingLayer, representing the part of the door that opens (the door itself);
     /// a sublayer called baseLayer for the doorframe and provides a mask for the door;
     /// and a sublayer handleLayer for the door handle.
     /// Separating these views into separate layers allows for custom animations to applied to each
